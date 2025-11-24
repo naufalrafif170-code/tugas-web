@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - PokeAPI Client</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #d9e4ff, #fce4ec);
+            padding-bottom: 40px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #1E88E5;
+            padding: 15px;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Box */
+        .box {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease;
+        }
+
+        a.btn {
+            display: block;
+            margin: 10px auto;
+            padding: 12px;
+            width: 70%;
+            background: #1E88E5;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        a.btn:hover {
+            background: #1565c0;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="list.html">List</a>
+    <a href="detail.html">Detail</a>
+</div>
+
+<div class="box">
+    <h1>PokeAPI REST Client</h1>
+    <p>Aplikasi ini menampilkan data Pokémon dari API publik.</p>
+
+    <a class="btn" href="list.html">Lihat List Pokémon</a>
+    <a class="btn" href="detail.html">Cari Pokémon</a>
+</div>
+
+</body>
+</html>
