@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Pokémon</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #fafafa;
+            font-family: Arial, sans-serif;
+            padding-bottom: 40px;
+        }
+
+        .navbar {
+            background: #1E88E5;
+            padding: 15px;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .box {
+            max-width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        img { width: 150px; }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="list.html">List</a>
+    <a href="detail.html">Detail</a>
+</div>
+
+<div class="box">
+    <h2>Detail Pokémon</h2>
+
+    <div id="result">Loading...</div>
+
+    <button onclick="history.back()">Kembali</button>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const pokemonName = urlParams.get("name");
+
+    if (!pokemonName) {
+        document.getElementById("result").innerHTML = "<p>Silakan pilih Pokémon dari halaman list.</p>";
+    } else {
+        loadPokemon(pokemonName);
+    }
+
+    async function loadPokemon(name) {
+        try {
+            let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
+
+            if (!res.ok) {
+                document.getElementById("result").innerHTML = "<p>Pokémon tidak ditemukan!</p>";
+                return;
+            }
+
+            let data = await res.json();
+
+            document.getElementById("result").innerHTML = `
+                <h3>${data.name.toUpperCase()}</h3>
+                <img src="${data.sprites.front_default}" alt="Pokemon Image">
+                <p><b>Height:</b> ${data.height}</p>
+                <p><b>Weight:</b> ${data.weight}</p>
+                <p><b>Types:</b> ${data.types.map(t => t.type.name).join(", ")}</p>
+            `;
+        } catch (error) {
+            document.getElementById("result").innerHTML = "<p>Terjadi kesalahan mengambil data!</p>";
+        }
+    }
+</script>
+
+</body>
+</html>
