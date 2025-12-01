@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home - PokeAPI Client</title>
+    <title>PokeAPI Client - Home + Search</title>
 
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #d9e4ff, #fce4ec);
-            padding-bottom: 40px;
+            overflow-x: hidden;
         }
 
-        /* Navbar */
+        /* NAVBAR */
         .navbar {
             background: #1E88E5;
             padding: 15px;
@@ -23,60 +23,193 @@
             text-decoration: none;
             margin: 0 15px;
             font-size: 18px;
+            font-weight: bold;
         }
         .navbar a:hover {
-            text-decoration: underline;
+            opacity: 0.8;
         }
 
-        /* Box */
-        .box {
-            max-width: 500px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
+        /* HERO */
+        .hero {
             text-align: center;
-            box-shadow: 0 0 12px rgba(0,0,0,0.1);
-            animation: fadeIn 0.6s ease;
+            padding: 70px 20px;
+            animation: fadeIn 0.8s ease;
+        }
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: auto;
+            opacity: 0.85;
         }
 
-        a.btn {
-            display: block;
-            margin: 10px auto;
-            padding: 12px;
-            width: 70%;
+        /* FEATURE CARDS */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 50px auto;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            width: 280px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.12);
+            text-align: center;
+            transition: 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        .card h3 {
+            margin-top: 10px;
+            font-size: 22px;
+        }
+        .card p {
+            font-size: 14px;
+            opacity: 0.75;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
             background: #1E88E5;
             color: white;
             text-decoration: none;
             border-radius: 10px;
         }
-
-        a.btn:hover {
+        .btn:hover {
             background: #1565c0;
         }
 
-        /* Animation */
+        /* SEARCH SECTION */
+        .search-box {
+            max-width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.12);
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #1E88E5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1565c0;
+        }
+
+        .result {
+            margin-top: 25px;
+        }
+        img {
+            width: 150px;
+            margin-top: 15px;
+        }
+
+        /* ANIMASI */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
         }
     </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
     <a href="index.html">Home</a>
     <a href="list.html">List</a>
     <a href="detail.html">Detail</a>
 </div>
 
-<div class="box">
-    <h1>PokeAPI REST Client</h1>
-    <p>Aplikasi ini menampilkan data Pokémon dari API publik.</p>
-
-    <a class="btn" href="list.html">Lihat List Pokémon</a>
-    <a class="btn" href="detail.html">Cari Pokémon</a>
+<!-- HERO SECTION -->
+<div class="hero">
+    <h1>Selamat Datang di PokeAPI Client</h1>
+    <p>Aplikasi sederhana untuk menampilkan data Pokémon dari API publik.  
+       Kamu bisa melihat list, detail, dan melakukan pencarian Pokémon langsung di halaman ini.
+    </p>
 </div>
+
+<!-- FEATURE CARDS -->
+<div class="features">
+
+    <div class="card">
+        <h3>List Pokémon</h3>
+        <p>Melihat daftar lengkap Pokémon beserta ID dan nama.</p>
+        <a class="btn" href="list.html">Lihat List</a>
+    </div>
+
+    <div class="card">
+        <h3>Detail Pokémon</h3>
+        <p>Cek informasi Pokémon berdasarkan nama atau ID.</p>
+        <a class="btn" href="detail.html">Cek Detail</a>
+    </div>
+
+    <div class="card">
+        <h3>Pencarian Cepat</h3>
+        <p>Cari Pokémon langsung dari halaman utama.</p>
+        <a class="btn" href="#search">Mulai Cari</a>
+    </div>
+
+</div>
+
+<!-- SEARCH SECTION -->
+<div class="search-box" id="search">
+    <h2>Cari Pokémon</h2>
+    <input type="text" id="searchInput" placeholder="Masukkan nama Pokémon...">
+    <button onclick="searchPokemon()">Search</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+async function searchPokemon() {
+    const name = document.getElementById("searchInput").value.toLowerCase();
+    const resultBox = document.getElementById("result");
+    resultBox.innerHTML = "Loading...";
+
+    try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        if (!res.ok) throw new Error("Pokémon tidak ditemukan");
+        const data = await res.json();
+
+        resultBox.innerHTML = `
+            <h3>${data.name.toUpperCase()}</h3>
+            <img src="${data.sprites.front_default}" alt="${data.name}">
+            <p><strong>ID:</strong> ${data.id}</p>
+            <p><strong>Tinggi:</strong> ${data.height}</p>
+            <p><strong>Berat:</strong> ${data.weight}</p>
+        `;
+    } catch (error) {
+        resultBox.innerHTML = `<p style="color:red">${error.message}</p>`;
+    }
+}
+</script>
 
 </body>
 </html>
