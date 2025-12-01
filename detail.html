@@ -31,6 +31,21 @@
             border-radius: 15px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background watermark pokeball */
+        .box::before {
+            content: "";
+            background: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png') no-repeat center;
+            opacity: 0.08;
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 260px;
         }
 
         img { width: 150px; }
@@ -42,6 +57,17 @@
             color: white;
             border: none;
             border-radius: 8px;
+        }
+
+        /* Badge tipe Pokémon */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 12px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -72,6 +98,27 @@
         loadPokemon(pokemonName);
     }
 
+    const typeColors = {
+        fire: "#ff3c00",
+        water: "#2495ff",
+        grass: "#3bb54a",
+        electric: "#f7d325",
+        ice: "#66d1ff",
+        psychic: "#ff5599",
+        fighting: "#b82612",
+        normal: "#9a9a9a",
+        flying: "#7aa4ff",
+        poison: "#a33ea1",
+        ground: "#d6b65c",
+        rock: "#baa542",
+        bug: "#99aa22",
+        ghost: "#5556b0",
+        dark: "#4a3d33",
+        steel: "#9eb7b8",
+        fairy: "#ff73d5",
+        dragon: "#7038f8"
+    };
+
     async function loadPokemon(name) {
         try {
             let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
@@ -83,12 +130,16 @@
 
             let data = await res.json();
 
+            const typeBadges = data.types
+                .map(t => `<span class="badge" style="background:${typeColors[t.type.name] || '#777'}">${t.type.name}</span>`)
+                .join(" ");
+
             document.getElementById("result").innerHTML = `
                 <h3>${data.name.toUpperCase()}</h3>
                 <img src="${data.sprites.front_default}" alt="Pokemon Image">
                 <p><b>Height:</b> ${data.height}</p>
                 <p><b>Weight:</b> ${data.weight}</p>
-                <p><b>Types:</b> ${data.types.map(t => t.type.name).join(", ")}</p>
+                <p><b>Types:</b><br>${typeBadges}</p>
             `;
         } catch (error) {
             document.getElementById("result").innerHTML = "<p>Terjadi kesalahan mengambil data!</p>";
